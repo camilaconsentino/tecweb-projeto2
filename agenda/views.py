@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets
-from .models import Agenda
+from .models import Contato
 from django.http import Http404
 from .serializer import EmailSerializer
 from django.http import HttpResponse
@@ -15,8 +15,8 @@ def index(request):
 @api_view(['GET', 'POST'])
 def agenda(request):
     try:
-        email = Agenda.objects.get(id=id)
-    except Agenda.DoesNotExist:
+        email = Contato.objects.get(id=id)
+    except Contato.DoesNotExist:
         raise Http404()
     
     if request.method == 'POST':
@@ -27,7 +27,7 @@ def agenda(request):
         email.save()
 
     if request.method == 'GET':
-        query_set = Agenda.objects.all()
+        query_set = Contato.objects.all()
         serialized_email = EmailSerializer(query_set, many=True)
         return Response(serialized_email.data)
 
@@ -38,9 +38,9 @@ def agenda(request):
 @api_view(['GET'])
 def agenda_detail(request, id):
     try:
-        email = Agenda.objects.get(id=id)
+        email = Contato.objects.get(id=id)
 
-    except Agenda.DoesNotExist:
+    except Contato.DoesNotExist:
         raise Http404()
     
     serialized_email = EmailSerializer(email, many=True)
