@@ -23,7 +23,6 @@ def agenda(request):
         new_email_data = request.data
         email.name = new_email_data['name']
         email.user = new_email_data['email']
-        email.data = new_email_data['send_time']
         email.save()
 
     if request.method == 'GET':
